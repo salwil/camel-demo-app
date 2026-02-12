@@ -1,0 +1,31 @@
+- route:
+    id: route-kafka-ewz-labsession
+    description: Kafka Ewz Labsession
+    nodePrefixId: route-kafka-ewz-labsession
+    from:
+      id: from83f9
+      uri: kafka
+      parameters:
+        topic: ewz-labsession
+        brokers: >-
+          ewz-lori-kafka-broker-pool-0.ewz-lori-kafka-kafka-brokers.ewz-lori-kafka-dev.svc:9092,ewz-lori-kafka-broker-pool-1.ewz-lori-kafka-kafka-brokers.ewz-lori-kafka-dev.svc:9092,ewz-lori-kafka-broker-pool-2.ewz-lori-kafka-kafka-brokers.ewz-lori-kafka-dev.svc:9092
+        securityProtocol: SASL_SSL
+        saslMechanism: OAUTHBEARER
+        saslJaasConfig: >-
+          org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required oauth.password.grant.username='EWZ-svc-lori-tuser'
+          oauth.password.grant.password='L3Z/@0Z4:k' oauth.client.id='ewz-lori-broker' oauth.client.secret='SrqsHQQs9KFsKlG6H8ACiQNtnho0Jssx'
+          oauth.token.endpoint.uri='https://cmp-idp-dev.stzh.ch/realms/szh-dev/protocol/openid-connect/token'
+      steps:
+        - log:
+            id: log27b0
+            message: body
+        - to:
+            id: to9f9b
+            uri: kamelet:mongodb-sink
+            parameters:
+              collection: salome-camel-collection
+              hosts: ewz-cmp-poc-2-mongodb-headless.ewz-cmp-poc-2-dev:27017
+              username: root
+              password: fA8U8QWdS8hWAd
+              database: salome-event-poc
+              createCollection: true
