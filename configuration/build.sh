@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-export NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+#export NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
+export NAMESPACE='camel-k'
 
 git config --global credential.helper 'cache --timeout=3600'
 git_credential_fill() {
