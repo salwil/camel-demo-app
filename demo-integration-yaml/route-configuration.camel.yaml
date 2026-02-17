@@ -1,7 +1,8 @@
 - route:
     id: route-kafka-ewz-labsession
-    description: Kafka Ewz Labsession
+    description: Route from Kafka Topic ewz-labsession to MongoDB salome-camel-collection
     nodePrefixId: route-kafka-ewz-labsession
+    autoStartup: true
     from:
       id: from83f9
       uri: kafka
@@ -26,6 +27,9 @@
               collection: salome-camel-collection
               hosts: ewz-cmp-poc-2-mongodb-headless.ewz-cmp-poc-2-dev:27017
               username: root
-              password: fA8U8QWdS8hWAd
+              password: "{{ mongodb-password }}"
               database: salome-event-poc
               createCollection: true
+        - to:
+            id: to6d84
+            uri: kamelet:rest-openapi-sink
