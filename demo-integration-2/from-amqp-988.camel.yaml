@@ -1,0 +1,35 @@
+- route:
+    id: route3cc9
+    nodePrefixId: route668
+    from:
+      id: from4fd0
+      uri: kamelet:spring-rabbitmq-source
+      parameters:
+        host: ewz-ibroker-rabbitmq
+        port: 5672
+        routingKey: test
+        username: rabbit_era
+        password: rabbit_era
+        exchangeName: test-exchange
+        queues: test-queue
+        protocol: amqp
+      steps:
+        - log:
+            id: logab0f
+            message: "GET API : ${body}"
+            loggingLevel: INFO
+        - to:
+            id: to007a
+            uri: kafka
+            parameters:
+              topic: ewz-labsession
+              brokers: ewz-lori-kafka.dev.cmp.szh.loc:5061
+              clientId: ewz-lori-broker
+              securityProtocol: SASL_SSL
+              saslMechanism: OAUTHBEARER
+              sslTruststoreLocation: /etc/ssl/certs/ewz-lori-dev.crt
+              sslTruststoreType: PEM
+              saslJaasConfig: >-
+                org.apache.kafka.common.security.oauthbearer.OAuthBearerLoginModule required oauth.password.grant.username="EWZ-svc-lori-tuser"
+                oauth.password.grant.password="L3Z/@0Z4:k" oauth.client.id="ewz-lori-broker" oauth.client.secret="SrqsHQQs9KFsKlG6H8ACiQNtnho0Jssx"
+                oauth.token.endpoint.uri="https://cmp-idp-dev.stzh.ch/realms/szh-dev/protocol/openid-connect/token" ;
